@@ -3,20 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merge PDFs</title>
+    <title>Merge & Compress PDFs</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Combine PDFs</h1>
-        <p>Select multiple PDF files to merge them into one.</p>
+        <p class="subtitle">Drag, drop, and rearrange files vertically.</p>
         
-        <input type="file" id="fileInput" accept="application/pdf" multiple>
-        <button id="mergeBtn">Merge PDFs</button>
+        <div id="dropZone" class="drop-zone">
+            <span class="drop-icon">📄</span>
+            <p>Drag & Drop PDFs here</p>
+            <p class="small-text">or <span class="browse-text">click to browse</span></p>
+            <input type="file" id="fileInput" accept="application/pdf" multiple hidden>
+        </div>
+
+        <div class="optimization-box">
+            <label for="sizeScale">Resize / Compress Quality:</label>
+            <div class="slider-container">
+                <span>Small</span>
+                <input type="range" id="sizeScale" min="0.5" max="1" step="0.05" value="1">
+                <span>Original</span>
+            </div>
+            <p id="scaleValue" class="small-text">Scale: 100% (Original Size)</p>
+        </div>
+
+        <ul id="fileList" class="file-list"></ul>
+        
+        <button id="mergeBtn" class="merge-btn" disabled>Merge & Compress</button>
         
         <p id="status"></p>
-        <p id="globalCounter" style="font-size: 14px; color: #0070f3; font-weight: bold;">Global PDFs merged: Loading...</p>
+        
+        <div id="sizeInfo" class="size-info" style="display: none;">
+            <p><strong>Original Total Size:</strong> <span id="inputSize">0 MB</span></p>
+            <p><strong>Final Merged Size:</strong> <span id="outputSize">0 MB</span></p>
+        </div>
+        
+        <div class="stats-box">
+            <p id="globalCounter">Global PDFs merged: Loading...</p>
+        </div>
     </div>
 
     <script type="module" src="script.js"></script>
